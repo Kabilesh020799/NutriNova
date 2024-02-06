@@ -1,4 +1,4 @@
-name: Deploy Frontend
+name: NutriNova - Build and Deploy
 
 on:
   push:
@@ -6,22 +6,44 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.11.0
 
-      - name: Build and Deploy Frontend
-        run: |
-          cd termProject
-          npm install
-          npm run build
+      - name: Install Dependencies
+        working-directory: termProject
+        run:  npm install
+      
+      - name: Build
+        working-directory: termProject
+        run: npm run build
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: termProject/dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: termProject/dist
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.2.0
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: main
+          BRANCH: gh-pages
           FOLDER: termProject/dist
