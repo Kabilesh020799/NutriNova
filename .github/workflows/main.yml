@@ -25,6 +25,11 @@ jobs:
       - name: Build
         working-directory: termProject
         run: npm run build
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: termProject/dist
 
   deploy:
     runs-on: ubuntu-latest
