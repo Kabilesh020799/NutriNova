@@ -15,7 +15,8 @@ jobs:
       
       - name: Setup Node
         uses: actions/setup-node@v3
-        with: 20.11.0
+        with:
+          node-version: 20.11.0
 
       - name: Install Dependencies
         working-directory: frontend
@@ -27,11 +28,11 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-      needs: build
-      steps:
-        - name: Deploy to GitHub Pages
-          uses: JamesIves/github-pages-deploy-action@4.2.0
-          with:
-            ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            BRANCH: gh-pages
-            FOLDER: frontend/dist
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.2.0
+        with:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: frontend/dist
