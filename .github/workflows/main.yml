@@ -19,11 +19,11 @@ jobs:
           node-version: 20.11.0
 
       - name: Install Dependencies
-        working-directory: frontend
+        working-directory: termProject
         run:  npm install
       
       - name: Build
-        working-directory: frontend
+        working-directory: termProject
         run: npm run build
 
   deploy:
@@ -35,4 +35,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: frontend/dist
+          FOLDER: termProject/dist
