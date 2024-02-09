@@ -1,10 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../views/LoginView.vue';
 import HomeView from '../views/HomeView.vue';
+import AppointmentView from '../views/AppoinmentView.vue';
+import MedicationView from '../views/MedicationView.vue';
+import MentalHealthView from '../views/MentalHealthView.vue';
+import NutritionView from '../views/NutritionView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+  routes:  [
     {
       path: '/',
       redirect: '/login'
@@ -21,7 +25,27 @@ const router = createRouter({
       name: 'Home',
       component: HomeView
     },
-  ]
+    {
+      path: '/nutrition',
+      name: 'Nutrition',
+      component: NutritionView,
+    },
+    {
+      path: '/mental-health',
+      name: 'Mental Health',
+      component: MentalHealthView,
+    },
+    {
+      path: '/medication',
+      name: 'Medication',
+      component: MedicationView,
+    },
+    {
+      path: '/appointment',
+      name: 'Appointment',
+      component: AppointmentView,
+    }
+  ],
 })
 
 export default router

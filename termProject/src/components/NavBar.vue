@@ -1,6 +1,20 @@
 <template>
   <div class="navbar">
-    <div class="navbar-item" v-for="(item, index) in navBarConstants">{{ item.label }}</div>
+    <div class="navbar-item" v-for="(item, index) in navBarConstants">
+      <router-link
+        :to="item.route"
+        custom
+        v-slot="{ href, route, navigate, isActive, isExactActive }"
+      >
+        <NavLink
+          :active="isActive"
+          :href="href"
+          @click="navigate"
+        >
+          {{ item.label }}
+        </NavLink>
+      </router-link>
+    </div>
     <v-menu>
       <template v-slot:activator="{ props }">
         <v-avatar 
@@ -41,6 +55,10 @@
     color: #fff;
     font-weight: bold;
     font-size: 20px;
+
+    .navbar-item {
+      cursor: pointer;
+    }
   }
   .custom-menu-item:hover.v-list-item{
     background: #8560DB !important;
