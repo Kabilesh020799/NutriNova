@@ -53,7 +53,6 @@
 </script>
 <style scoped lang="scss">
   .navbar {
-    // background: linear-gradient(to right, #8560DB, #3A3873);
     height: 80px;
     display: flex;
     justify-content: end;
