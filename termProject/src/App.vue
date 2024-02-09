@@ -14,6 +14,9 @@ header {
   line-height: 1.5;
   max-height: 100vh;
 }
+body {
+  background: #C1C1C1;
+}
 
 .logo {
   display: block;

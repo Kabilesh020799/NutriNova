@@ -1,6 +1,9 @@
 <template>
   <div class="navbar">
-    <div class="navbar-item" v-for="(item, index) in navBarConstants">
+    <div
+      :class="item.route === $route.path ? 'navbar-item active': 'navbar-item'"
+      v-for="(item, index) in navBarConstants"
+    >
       <router-link
         :to="item.route"
         custom
@@ -15,7 +18,12 @@
         </NavLink>
       </router-link>
     </div>
-    <v-menu>
+    <button
+      class="login-btn"
+    >
+        Login in
+    </button>
+    <!-- <v-menu>
       <template v-slot:activator="{ props }">
         <v-avatar 
           color="#fff"
@@ -35,7 +43,7 @@
           <v-list-item-title>{{ item.label }}</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu> -->
   </div>
 </template>
 
@@ -45,21 +53,47 @@
 </script>
 <style scoped lang="scss">
   .navbar {
-    background: linear-gradient(to right, #8560DB, #3A3873);
-    width: 100vw;
+    // background: linear-gradient(to right, #8560DB, #3A3873);
     height: 80px;
     display: flex;
-    justify-content: space-around;
+    justify-content: end;
     align-items: center;
     font-family: 'Noto Sans', sans-serif;
-    color: #fff;
-    font-weight: bold;
-    font-size: 20px;
+    color: #404040;
+    font-size: 13px;
+    gap: 35px;
+    margin-right: 20px;
 
     .navbar-item {
       cursor: pointer;
+      border-bottom: 1.5px solid transparent;
+      padding-bottom: 4px;
+      font-weight: 600;
+    }
+    .navbar-item:hover {
+      transform: scale(1.1);
+    }
+    .active {
+      border-bottom: 1.5px solid #8560DB;
+      transition: border-bottom 0.3s ease-in-out;
+    }
+    .login-btn {
+      background: linear-gradient(to right, #8560DB, #3A3873);
+      padding: 8px 20px;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      font-family: 'Roboto', sans-serif;
+      cursor: pointer;
+    }
+    .login-btn:hover {
+      transform: scale(1.2);
     }
   }
+
   .custom-menu-item:hover.v-list-item{
     background: #8560DB !important;
     color: #fff;
