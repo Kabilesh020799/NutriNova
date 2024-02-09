@@ -72,6 +72,8 @@
     }
     .navbar-item:hover {
       transform: scale(1.1);
+      font-weight: bold;
+      text-shadow: 0.5px 0.5px 1px #404040;
     }
     .active {
       border-bottom: 1.5px solid #8560DB;
