@@ -34,13 +34,17 @@
 
 <script setup>
   import router from '@/router';
-import LoginGif from '../assets/images/login_health.png';
+  import LoginGif from '../assets/images/login_health.png';
 
   const {
     type,
   } = defineProps(['type' ]);
 
   const onLogin = () => {
+    const data = {
+
+    }
+    fetch()
     router.push('/home');
   };
 

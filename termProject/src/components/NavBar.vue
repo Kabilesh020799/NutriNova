@@ -20,6 +20,7 @@
     </div>
     <button
       class="login-btn"
+      @click="onClickLogin"
     >
         Login in
     </button>
@@ -49,6 +50,11 @@
 
 <script setup>
   import { navBarConstants } from '@/constants/constants';
+  import router from '@/router';
+
+  const onClickLogin = () => {
+    router.push({ path: '/login' })
+  }
 
 </script>
 <style scoped lang="scss">
