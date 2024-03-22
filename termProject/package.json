@@ -11,7 +11,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "flatpickr": "^4.6.13",
     "vue": "^3.3.11",
+    "vue-flatpickr-component": "^11.0.5",
     "vue-router": "^4.2.5",
     "vuetify": "^3.5.2"
   },
