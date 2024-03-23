@@ -15,7 +15,7 @@ header {
   max-height: 100vh;
 }
 body {
-  background: #C1C1C1;
+  background: #F7FBFE !important;
 }
 
 .logo {

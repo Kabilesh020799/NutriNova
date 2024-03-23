@@ -1,29 +1,36 @@
 <template>
   <div class="navbar">
-    <div
+    <img
+      :src="logo"
+      alt="logo"
+      style="height: 100px;"
+    />
+    <div style="display: flex; flex: 0.7; justify-content: space-around; align-items: center;">
+      <div
       :class="item.route === $route.path ? 'navbar-item active': 'navbar-item'"
       v-for="(item, index) in navBarConstants"
-    >
-      <router-link
-        :to="item.route"
-        custom
-        v-slot="{ href, route, navigate, isActive, isExactActive }"
-      >
-        <NavLink
-          :active="isActive"
-          :href="href"
-          @click="navigate"
+       >
+        <router-link
+          :to="item.route"
+          custom
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
         >
-          {{ item.label }}
-        </NavLink>
-      </router-link>
+          <NavLink
+            :active="isActive"
+            :href="href"
+            @click="navigate"
+          >
+            {{ item.label }}
+          </NavLink>
+        </router-link>
+      </div>
+      <button
+        class="login-btn"
+        @click="onClickLogin"
+      >
+          Login in
+      </button>
     </div>
-    <button
-      class="login-btn"
-      @click="onClickLogin"
-    >
-        Login in
-    </button>
     <!-- <v-menu>
       <template v-slot:activator="{ props }">
         <v-avatar 
@@ -51,6 +58,7 @@
 <script setup>
   import { navBarConstants } from '@/constants/constants';
   import router from '@/router';
+  import logo from '@/assets/nutrinova-logo.webp';
 
   const onClickLogin = () => {
     router.push({ path: '/login' })
@@ -61,7 +69,7 @@
   .navbar {
     height: 80px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
     font-family: 'Noto Sans', sans-serif;
     color: #404040;
