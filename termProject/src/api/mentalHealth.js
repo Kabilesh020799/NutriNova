@@ -3,19 +3,13 @@ import { isUserLogged } from "@/utils/commonUtils";
 const endpoint = "http://localhost:8080/api";
 const userLogged = isUserLogged();
 
-const saveMedication = async(params) => {
-  const {
-    medication,
-    time,
-  } = params;
-
+const saveMentalHealth = async(params) => {
   const body = {
-    name: medication,
+    ...props,
     user: userLogged,
-    time,
   };
 
-  const res = await fetch(`${endpoint}/save-medication`, {
+  const res = await fetch(`${endpoint}/add-mental-health`, {
     method: 'POST',
     headers: {  "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -26,19 +20,19 @@ const saveMedication = async(params) => {
   return false;
 };
 
-const getAllMedication = async() => {
-  let res = await fetch(`${endpoint}/get-medication?email=${userLogged}`, {
+const getAllMentalHealth = async() => {
+  let res = await fetch(`${endpoint}/mental-health?email=${userLogged}`, {
     method: 'GET',
     headers: {  "Content-Type": "application/json" },
   })
   if(res.status) {
     res = await res.json();
-    return res?.map((resItem) => ({ ...resItem,medication: resItem?.name  }));
+    return res;
   }
   return false;
 };
 
 export {
-  saveMedication,
-  getAllMedication,
+  saveMentalHealth,
+  getAllMentalHealth,
 };

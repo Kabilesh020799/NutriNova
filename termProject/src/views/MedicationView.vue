@@ -39,7 +39,7 @@
   import { ref } from 'vue';
   import FlatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
-  import { saveMedication } from '@/api/medication';
+  import { getAllMedication, saveMedication } from '@/api/medication';
 
   const time = ref(null);
   const medicationList = ref([]);
@@ -66,9 +66,12 @@
     } else {
       alert("There was some issue in adding! Please try again.")
     }
-
   };
-
+  const onLoad = async() => {
+    const res = await getAllMedication();
+    medicationList.value.push(...res);
+  }
+  onLoad();
 </script>
 
 <style lang="scss" scoped>
