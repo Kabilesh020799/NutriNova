@@ -6,26 +6,28 @@
     <div class="login-container-right">
       <div class="login-container-right-heading">Sign In to get your nutrients</div>
       <div class="login-container-right-input-wrapper">
-        <div class="input-container">
+        <div class="input-container" v-if="type === 'signup'">
           <label for="username" class="label">Username</label>
-          <input type="text" class="input" name="username">
+          <input type="text" class="input" name="username" v-model="name">
         </div>
         <div class="input-container">
           <label for="email" class="label">Email</label>
-          <input type="email" class="input" name="email">
+          <input type="email" class="input" name="email" v-model="email">
         </div>
         <div class="input-container">
           <label for="password" class="label">Password</label>
-          <input type="password" class="input" name="password">
+          <input type="password" class="input" name="password" v-model="password">
         </div>
       </div>
       <div class="login-container-right-submit-container">
         <div class="toc">
-          <input type="checkbox" class="checkbox">
-          <span class="text">I accept the terms & Condition</span>
+          <span class="text">Already have an account?</span>
+          <span @click="onClickSignin">
+            {{ route?.name !== 'Login' ? 'Login in' : 'Sign up' }}
+          </span>
         </div>
         <button class="submit-btn" @click="onLogin">
-          Login in
+          {{ route?.name === 'Login' ? 'Login in' : 'Sign up' }}
         </button>
       </div>
     </div>
@@ -35,17 +37,49 @@
 <script setup>
   import router from '@/router';
   import LoginGif from '../assets/images/login_health.png';
+  import { signup, login } from '@/api/user';
+  import { ref } from 'vue';
 
   const {
     type,
   } = defineProps(['type' ]);
 
-  const onLogin = () => {
-    const data = {
+  const name = ref('');
+  const email = ref('');
+  const password = ref('');
+  const route = router.currentRoute.value;
 
+  const onClickSignin = () => {
+    if(route?.name === 'Login') {
+      router.push('/signup');
+    } else {
+      router.push('/login');
     }
-    fetch()
-    router.push('/home');
+  };
+
+  const onLogin = async() => {
+    if(route?.name === 'Login') {
+      const res = await login({
+        email: email.value,
+        password: password.value, 
+      });
+      if(res) {
+        if(res?.message === 'Login successful') {
+          localStorage.setItem("user", email);
+          router.push('/home');
+        } else {
+          alert("User and password doesn't match");
+        }
+      }
+    } else {
+      if(signup({
+        name: name.value,
+        email: email.value,
+        password: password.value,
+      })) {
+        alert("Signed up successfully")
+      }
+    }
   };
 
 </script>
@@ -128,39 +162,6 @@
         .toc {
           display: flex;
           align-items: center;
-
-          .checkbox {
-            position: relative;
-            width: 23px;
-            height: 23px;
-            cursor: pointer;
-
-            &::before {
-              content: '';
-              position: absolute;
-              top: 0.45px;
-              left: 0.125px;
-              width: 21.5243px;
-              height: 22px;
-              border-radius: 2px;
-              background-color: #7B76F1;
-              opacity: 0.0980392;
-              border: 1px solid #7B76F1;
-            }
-            &::after {
-              content: '';
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 9px;
-              height: 0;
-              border-top: 7px solid transparent;
-              border-bottom: 7px solid transparent;
-              border-left: 14px solid #7B76F1;
-              transform: translate(-50%, -50%) scale(0);
-              transition: transform 0.3s ease-in-out;
-            }
-          }
           .text {
             color: #757575;
             font-family: "Zen Kaku Gothic Antique";
@@ -169,6 +170,17 @@
             font-weight: 400;
             line-height: 22.53px;
           }
+        }
+        .toc > span:nth-child(2) {
+          color: #7B76F1;
+          font-family: "Zen Kaku Gothic Antique";
+          font-size: 10.24px;
+          font-style: normal;
+          font-weight: bolder;
+          line-height: 22.53px;
+          margin-left: 2px;
+          text-decoration: underline;
+          cursor: pointer;
         }
         .submit-btn {
           border-radius: 56px;

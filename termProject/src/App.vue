@@ -1,12 +1,12 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue';
 
 </script>
 
 <template>
   <NavBar v-if="!$route.meta.noNavbar"/>
-  <RouterView />
+  <RouterView :key="$route.fullPath" />
 </template>
 
 <style scoped lang="scss">

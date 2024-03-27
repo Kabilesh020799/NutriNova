@@ -26,9 +26,9 @@
       </div>
       <button
         class="login-btn"
-        @click="onClickLogin"
+        @click="onClickLogout"
       >
-          Login in
+          Logout
       </button>
     </div>
     <!-- <v-menu>
@@ -60,8 +60,9 @@
   import router from '@/router';
   import logo from '@/assets/nutrinova-logo.webp';
 
-  const onClickLogin = () => {
-    router.push({ path: '/login' })
+  const onClickLogout = () => {
+    localStorage.clear('user');
+    router.push('/login');
   }
 
 </script>

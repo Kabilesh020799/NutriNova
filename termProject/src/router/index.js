@@ -21,6 +21,13 @@ const router = createRouter({
       meta: { noNavbar: true },
     },
     {
+      path: '/signup',
+      name: 'Signup',
+      component: LoginView,
+      props: { type: 'signup' },
+      meta: { noNavbar: true },
+    },
+    {
       path: '/home',
       name: 'Home',
       component: HomeView
@@ -46,6 +53,18 @@ const router = createRouter({
       component: AppointmentView,
     }
   ],
-})
+});
+
+router.beforeEach((to, from, next) => {
+  const loggedUser = localStorage.getItem("user");
+  const publicPages = ['/login', '/signup'];
+  const isAuthenticated = publicPages.includes(to.path);
+
+  if(!loggedUser && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
+});
 
 export default router
