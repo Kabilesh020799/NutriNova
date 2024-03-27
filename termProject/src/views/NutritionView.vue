@@ -51,7 +51,6 @@
     },
     methods: {
       onAddMeals(event) {
-        console.log(this.addedMeals)
         if(event.key === 'Enter') {
           this.addedMeals.push(event.target.value);
         }

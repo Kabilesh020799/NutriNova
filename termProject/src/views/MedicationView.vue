@@ -39,6 +39,7 @@
   import { ref } from 'vue';
   import FlatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
+  import { saveMedication } from '@/api/medication';
 
   const time = ref(null);
   const medicationList = ref([]);
@@ -53,11 +54,19 @@
 
   const onClickSubmit = () => {
     medication.value.trim();
-    medicationList.value.push({
+    if(saveMedication({
       medication: medication.value,
       time: time.value,
-    });
-    medication.value = "";
+    })) {
+      medicationList.value.push({
+        medication: medication.value,
+        time: time.value,
+      });
+      medication.value = "";
+    } else {
+      alert("There was some issue in adding! Please try again.")
+    }
+
   };
 
 </script>

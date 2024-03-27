@@ -44,7 +44,6 @@ const login = async(params) => {
 
   if(res.status === 200) {
     res = res.json();
-    console.log(res);
     return res;
   }
   return false;

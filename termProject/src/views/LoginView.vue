@@ -65,7 +65,7 @@
       });
       if(res) {
         if(res?.message === 'Login successful') {
-          localStorage.setItem("user", email);
+          localStorage.setItem("user", JSON.stringify(email.value));
           router.push('/home');
         } else {
           alert("User and password doesn't match");
