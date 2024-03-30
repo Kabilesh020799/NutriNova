@@ -15,7 +15,7 @@
           </div>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <btn text @click="dialog = false" class="dialog-disagree">Cancel</btn>
+            <btn text @click="dialog.value = false" class="dialog-disagree">Cancel</btn>
             <btn text @click="onSubmit" class="dialog-agree">Submit</btn>
           </v-card-actions>
         </v-card>
@@ -25,11 +25,12 @@
   <h1 class="blog-heading">Find some useful resources for your mental health</h1>
   <v-container>
   <v-list>
-    <v-list-item v-for="(blog, index) in blogs" :key="index" style="border-top: 1px solid grey; margin-bottom: 20px;">
+    <v-list-item v-for="(blogItem, index) in blogs" :key="index" style="border-top: 1px solid grey; margin-bottom: 20px;">
+      {{ console.log(blogItem) }}
       <v-list-item-content>
-        <v-list-item-title v-text="blog.title"></v-list-item-title>
+        <v-list-item-title v-text="blogItem.title"></v-list-item-title>
         <v-list-item-subtitle class="text--primary">
-          {{ getTwoLineGist(blog.content) }}
+          {{ getTwoLineGist(blogItem.content) }}
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
@@ -37,26 +38,39 @@
   </v-container>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        dialog: false,
-        blogs: [],
-        blog: {},
-      };
-    },
-    methods: {
-      getTwoLineGist(content) {
-        return content.length > 100 ? content.substring(0, 100) + '...' : content;
-      },
-      onSubmit() {
-        this.blogs.push(this.blog);
-        this.blog = {};
-        this.dialog = false;
-      }
-    }
+<script setup>
+import { saveMentalHealth, getAllMentalHealth } from '@/api/mentalHealth';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
+
+
+  const dialog = ref(false);
+  const blogs = ref([]);
+  const blog = ref({
+    title: '',
+    content: '',
+  });
+
+  const onLoadMentalHealth = async() => {
+    const res = await getAllMentalHealth();
+    blogs.value = [...res];
+  }
+  const getTwoLineGist = (content) => {
+    return content?.length > 100 ? content.substring(0, 100) + '...' : content;
   };
+  const onSubmit = () => {
+    saveMentalHealth({
+      heading: blog.value.title,
+      description: blog.value.content,
+      date: new Date().toLocaleDateString(),
+    });
+    blogs.value.push({ ...blog.value, date: new Date().toLocaleDateString() });
+    blog.value = {};
+    dialog.value = false;
+    console.log(blogs.value)
+  }
+
+  onMounted(onLoadMentalHealth);
 </script>
 
 <style lang="scss" scoped>

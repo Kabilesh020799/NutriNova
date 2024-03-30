@@ -5,7 +5,7 @@ const userLogged = isUserLogged();
 
 const saveMentalHealth = async(params) => {
   const body = {
-    ...props,
+    ...params,
     user: userLogged,
   };
 
@@ -27,7 +27,11 @@ const getAllMentalHealth = async() => {
   })
   if(res.status) {
     res = await res.json();
-    return res;
+    return res?.map((resItem) => ({
+      title: resItem.heading,
+      content: resItem?.description,
+      date: resItem?.date,
+    }));
   }
   return false;
 };
