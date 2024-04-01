@@ -1,4 +1,4 @@
-const endpoint = "http://54.91.190.113:8080/api";
+const endpoint = "http://44.195.124.91:8080/api";
 
 const signup = async(params) => {
   const {

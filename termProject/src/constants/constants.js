@@ -26,7 +26,7 @@ const navBarConstants = [
   },
 ];
 
-const API_ENDPOINT = "http://54.91.190.113:8080";
+const API_ENDPOINT = "http://44.195.124.91:8080";
 
 export {
   navBarConstants,
