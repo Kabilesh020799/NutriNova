@@ -1,5 +1,5 @@
-// const endpoint = "http://44.195.124.91:8080/api";
-const endpoint = "http://localhost:8080/api";
+const endpoint = "http://44.195.124.91:8080/api";
+// const endpoint = "http://localhost:8080/api";
 
 const signup = async(params) => {
   const {
