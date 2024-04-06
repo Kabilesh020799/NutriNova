@@ -78,7 +78,7 @@ const uploadLogo = async(image) => {
       filename: 'logo' + email + '.jpg'
     })
   }
-  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/dev/upload-logo', {
+  let res = await fetch('', {
     method: 'POST',
     headers: {
       'Access-Control-Allow-Origin' : '*',
