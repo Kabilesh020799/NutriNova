@@ -71,7 +71,6 @@ const uploadLogo = async(image) => {
   const email = JSON.parse(localStorage.getItem("user"));
 
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-886e15yu3",
     name: 'Execution' + new Date(),
     input: JSON.stringify({
       email,
