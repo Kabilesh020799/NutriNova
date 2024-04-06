@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface MentalHealthRepository extends MongoRepository<MentalHealth, String> {
-        List<MentalHealth> findMentalHealthByUser(String user);
 }

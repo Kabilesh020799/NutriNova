@@ -29,7 +29,13 @@
       </div>
       <div class="medication-item" v-for="medicationItem in medicationList">
         <span>{{ medicationItem?.medication }}</span>
-        <span>{{ medicationItem?.time }}</span>
+        <span>
+          {{ medicationItem?.time }}
+          <button
+            class="btn-reminder"
+            @click="onClickRemind(medicationItem?.medication)"
+          >Remind</button>
+        </span>
       </div>
     </div>
   </div>
@@ -40,6 +46,7 @@
   import FlatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
   import { getAllMedication, saveMedication } from '@/api/medication';
+  import { sendReminder } from '@/api/user';
 
   const time = ref(null);
   const medicationList = ref([]);
@@ -67,6 +74,9 @@
       alert("There was some issue in adding! Please try again.")
     }
   };
+  const onClickRemind = (message) => {
+    sendReminder("It's time for " + message);
+  }
   const onLoad = async() => {
     const res = await getAllMedication();
     medicationList.value.push(...res);
@@ -77,7 +87,18 @@
 <style lang="scss" scoped>
 .medication {
   padding: 20px;
-
+  .btn-reminder {
+    background: linear-gradient(to right, #8560DB, #3A3873);
+      padding: 8px 20px;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      font-family: 'Roboto', sans-serif;
+      cursor: pointer;
+  }
   .heading {
     text-align: center;
     margin-bottom: 30px;

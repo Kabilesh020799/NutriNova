@@ -70,12 +70,13 @@
 
   const onClickLogout = () => {
     localStorage.clear('user');
+    localStorage.clear();
     router.push('/login');
   }
 
   onMounted(async() => {
     const logoUrl = await getLogo();
-    imageUrl.value = logoUrl;
+    imageUrl.value = logoUrl?.imageUrl;
   });
 
 </script>
