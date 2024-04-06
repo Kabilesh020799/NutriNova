@@ -26,7 +26,6 @@
   <v-container>
   <v-list>
     <v-list-item v-for="(blogItem, index) in blogs" :key="index" style="border-top: 1px solid grey; margin-bottom: 20px;">
-      {{ console.log(blogItem) }}
       <v-list-item-content>
         <v-list-item-title v-text="blogItem.title"></v-list-item-title>
         <v-list-item-subtitle class="text--primary">
@@ -55,6 +54,7 @@ import { onMounted } from 'vue';
     const res = await getAllMentalHealth();
     blogs.value = [...res];
   }
+  
   const getTwoLineGist = (content) => {
     return content?.length > 100 ? content.substring(0, 100) + '...' : content;
   };
@@ -67,7 +67,6 @@ import { onMounted } from 'vue';
     blogs.value.push({ ...blog.value, date: new Date().toLocaleDateString() });
     blog.value = {};
     dialog.value = false;
-    console.log(blogs.value)
   }
 
   onMounted(onLoadMentalHealth);

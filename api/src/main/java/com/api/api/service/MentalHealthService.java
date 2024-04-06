@@ -15,7 +15,7 @@ public class MentalHealthService {
         mentalHealthRepository.save(mentalHealth);
     }
 
-    public List<MentalHealth> getAllMentalHealth(String email) {
-        return mentalHealthRepository.findMentalHealthByUser(email);
+    public List<MentalHealth> getAllMentalHealth() {
+        return mentalHealthRepository.findAll();
     }
 }

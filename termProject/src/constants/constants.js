@@ -4,11 +4,11 @@ const navBarConstants = [
     value: 'home',
     route: '/home',
   },
-  {
-    label: 'Nutrition',
-    value: 'nutrition',
-    route: '/nutrition',
-  },
+  // {
+  //   label: 'Nutrition',
+  //   value: 'nutrition',
+  //   route: '/nutrition',
+  // },
   {
     label: 'Medication',
     value: 'medication',

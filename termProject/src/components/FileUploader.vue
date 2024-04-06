@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <h1>Upload Profile Image</h1>
-    <input type="file" @change="convertToBase64" accept="image/*" />
-    <div>{{ console.log(imageBase64) }}</div>
+  <div class="file-uploader">
+    <span>Upload Profile Image</span>
+    <input type="file" @change="convertToBase64" accept="image/*" style="cursor: pointer;" />
   </div>
 </template>
 
@@ -45,5 +44,13 @@ textarea {
 img {
   max-width: 100%;
   height: auto;
+}
+.file-uploader {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  align-items: start;
+  flex-direction: column;
 }
 </style>

@@ -22,6 +22,6 @@ public class MentalHealthController {
 
     @GetMapping("/mental-health")
     public ResponseEntity<List<MentalHealth>> getMentalHealth(@RequestParam String email) {
-        return ResponseEntity.ok(mentalHealthService.getAllMentalHealth(email));
+        return ResponseEntity.ok(mentalHealthService.getAllMentalHealth());
     }
 }

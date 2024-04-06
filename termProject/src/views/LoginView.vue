@@ -37,7 +37,7 @@
 <script setup>
   import router from '@/router';
   import LoginGif from '../assets/images/login_health.png';
-  import { signup, login } from '@/api/user';
+  import { signup, login, createTopic } from '@/api/user';
   import { ref } from 'vue';
 
   const {
@@ -77,6 +77,7 @@
         email: email.value,
         password: password.value,
       })) {
+        await createTopic(email.value, name.value);
         alert("Signed up successfully")
       }
     }

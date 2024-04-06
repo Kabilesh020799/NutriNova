@@ -44,7 +44,9 @@ const login = async(params) => {
   });
 
   if(res.status === 200) {
-    res = res.json();
+    res = await res.json();
+    localStorage.setItem("topicArn", JSON.stringify(res.topicArn));
+
     return res;
   }
   return false;
@@ -72,30 +74,69 @@ const uploadLogo = async(image) => {
 
   const body = {
     stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-886e15yu3",
-    name: 'Execution' + new Date(),
+    name: `MyExecution-${Date.now()}`,
     input: JSON.stringify({
       email,
       base64Image: image,
       filename: 'logo' + email + '.jpg'
     })
   }
-  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/dev/upload-logo', {
+  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/hub/uplo-image', {
     method: 'POST',
     headers: {
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-      'Access-Control-Allow-Credentials' : true,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
   });
   res = res.json();
-  console.log(res);
 }
+
+const createTopic = async(email, name) => {
+  const body = {
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-fv988bw82",
+    name: `MyExecution-${Date.now()}`,
+    input: JSON.stringify({
+      email,
+      name: "Reminder" + name,
+    })
+  };
+
+  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/hub', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  res = await res.json();
+};
+
+const sendReminder = async(message) => {
+  const topicArn = JSON.parse(localStorage.getItem('topicArn'));
+  const body = {
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-bfbx8p02s",
+    name: `MyExecution-${Date.now()}`,
+    input: JSON.stringify({
+      topicArn,
+      message,
+    })
+  };
+
+  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/hub/send-reminder', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    mode: 'no-cors',
+    body: JSON.stringify(body)
+  })
+};
 
 export {
   signup,
   login,
   getLogo,
   uploadLogo,
+  createTopic,
+  sendReminder,
 };

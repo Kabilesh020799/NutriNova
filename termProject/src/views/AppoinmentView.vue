@@ -29,7 +29,13 @@
       </div>
       <div class="appointment-item" v-for="appointmentItem in appointmentList">
         <span>{{ appointmentItem?.appointment }}</span>
-        <span>{{ appointmentItem?.time }}</span>
+        <span>
+          {{ appointmentItem?.time }}
+          <button
+            class="btn-reminder"
+            @click="onClickRemind(medicationItem?.medication)"
+          >Remind</button>
+        </span>
       </div>
     </div>
   </div>
@@ -126,6 +132,18 @@
     margin: 0 auto;
     font-size: 20px;
     font-weight: bold;
+  }
+  .btn-reminder {
+    background: linear-gradient(to right, #8560DB, #3A3873);
+      padding: 8px 20px;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      font-family: 'Roboto', sans-serif;
+      cursor: pointer;
   }
 }
 </style>
