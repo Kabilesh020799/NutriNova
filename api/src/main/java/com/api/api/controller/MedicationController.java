@@ -21,7 +21,6 @@ public class MedicationController {
     }
     @GetMapping("/get-medication")
     public ResponseEntity<List<Medication>> getMedication(@RequestParam String email) {
-        System.out.println(email);
         return ResponseEntity.ok(medicationService.getAllMedication(email));
     }
 }

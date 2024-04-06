@@ -1,21 +1,14 @@
 package com.api.api.controller;
 
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.api.api.StorageService;
+import com.api.api.model.DAO.Image;
 import com.api.api.model.DAO.User;
+import com.api.api.service.ImageService;
 import com.api.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Map;
-import java.util.Objects;
 
 @CrossOrigin
 @RestController
@@ -23,11 +16,9 @@ import java.util.Objects;
 public class UserController {
     @Autowired
     private UserService userService;
-    private String bucketName = "nutrinova-api";
     @Autowired
-    private StorageService storageService;
+    private ImageService imageService;
 
-    private AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
     @PostMapping("/signup")
     public void signup(@RequestBody User user) {
         userService.saveUser(user);
@@ -42,27 +33,8 @@ public class UserController {
             return ResponseEntity.badRequest().body(Map.of("message", "Invalid credentials"));
         }
     }
-
-    private File convertMultiPartToFile(MultipartFile file) throws IOException {
-        File convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(file.getBytes());
-        fos.close();
-        return convFile;
-    }
-
-    @PostMapping("/upload-logo")
-    public ResponseEntity<String> uploadLogo(@RequestParam("image")MultipartFile file) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("File is empty or not provided");
-        }
-
-        try {
-            String fileUrl = storageService.uploadFile(file);
-            return ResponseEntity.ok("File uploaded successfully: " + fileUrl);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("File upload failed due to an unexpected error");
-        }
+    @PostMapping("/get-image")
+    public ResponseEntity<Image> getImage(@RequestBody Image image) {
+        return ResponseEntity.ok(imageService.getImageUrl(image.getEmail()));
     }
 }
