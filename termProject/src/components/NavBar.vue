@@ -24,34 +24,36 @@
           </NavLink>
         </router-link>
       </div>
-      <button
-        class="login-btn"
-        @click="onClickLogout"
-      >
-          Logout
-      </button>
+      <img
+        class="navbar-img"
+        src=""
+      />
     </div>
-    <!-- <v-menu>
+    <v-menu>
       <template v-slot:activator="{ props }">
         <v-avatar 
           color="#fff"
           v-bind="props"
-          style="cursor: pointer;"
+          style="cursor: pointer"
         >
-          <span>KR</span>
+          <img
+            :src="imageUrl"
+            style="object-fit: cover; width: 100%; height: 100%;"
+          />
         </v-avatar>
       </template>
       <v-list>
-        <v-list-item
-          v-for="(item, index) in navBarConstants"
-          :key="index"
-          :value="index"
+        <div
           class="custom-menu-item"
+          @click="onClickLogout"
         >
-          <v-list-item-title>{{ item.label }}</v-list-item-title>
-        </v-list-item>
+          Logout
+      </div>
+      <div class="custom-menu-item">
+        <FileUploader />
+      </div>
       </v-list>
-    </v-menu> -->
+    </v-menu>
   </div>
 </template>
 
@@ -59,11 +61,22 @@
   import { navBarConstants } from '@/constants/constants';
   import router from '@/router';
   import logo from '@/assets/nutrinova-logo.webp';
+  import { onMounted } from 'vue';
+  import { getLogo } from '../api/user';
+  import { ref } from 'vue';
+  import FileUploader from './FileUploader.vue';
+
+  const imageUrl = ref('');
 
   const onClickLogout = () => {
     localStorage.clear('user');
     router.push('/login');
   }
+
+  onMounted(async() => {
+    const logoUrl = await getLogo();
+    imageUrl.value = logoUrl;
+  });
 
 </script>
 <style scoped lang="scss">
@@ -99,7 +112,6 @@
       outline: none;
       border: none;
       border-radius: 4px;
-      color: #fff;
       font-weight: 600;
       font-size: 16px;
       font-family: 'Roboto', sans-serif;
@@ -109,10 +121,13 @@
       transform: scale(1.2);
     }
   }
-
-  .custom-menu-item:hover.v-list-item{
-    background: #8560DB !important;
-    color: #fff;
-    transition: none;
+  .custom-menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
   }
+  .custom-menu-item:hover {
+    background: linear-gradient(to right, #8560DB, #3A3873);
+    color: #fff;
+  }
+
 </style>
