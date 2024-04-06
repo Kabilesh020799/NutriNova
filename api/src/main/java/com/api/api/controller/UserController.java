@@ -1,6 +1,8 @@
 package com.api.api.controller;
 
+import com.api.api.model.DAO.Image;
 import com.api.api.model.DAO.User;
+import com.api.api.service.ImageService;
 import com.api.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ImageService imageService;
+
     @PostMapping("/signup")
     public void signup(@RequestBody User user) {
         userService.saveUser(user);
@@ -27,5 +32,9 @@ public class UserController {
         } else {
             return ResponseEntity.badRequest().body(Map.of("message", "Invalid credentials"));
         }
+    }
+    @PostMapping("/get-image")
+    public ResponseEntity<Image> getImage(@RequestBody Image image) {
+        return ResponseEntity.ok(imageService.getImageUrl(image.getEmail()));
     }
 }

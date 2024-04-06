@@ -1,6 +1,8 @@
 import { isUserLogged } from "@/utils/commonUtils";
 
 const endpoint = "http://44.195.124.91:8080/api";
+// const endpoint = "http://localhost:8080/api";
+
 const userLogged = isUserLogged();
 
 const saveMentalHealth = async(params) => {
