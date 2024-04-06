@@ -71,6 +71,7 @@ const uploadLogo = async(image) => {
   const email = JSON.parse(localStorage.getItem("user"));
 
   const body = {
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-886e15yu3",
     name: 'Execution' + new Date(),
     input: JSON.stringify({
       email,
@@ -78,9 +79,12 @@ const uploadLogo = async(image) => {
       filename: 'logo' + email + '.jpg'
     })
   }
-  let res = await fetch('', {
+  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/dev/upload-logo', {
     method: 'POST',
     headers: {
+      'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+      'Access-Control-Allow-Credentials' : true,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
