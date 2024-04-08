@@ -1,6 +1,5 @@
-const endpoint = "http://44.195.124.91:8080/api";
-// const endpoint = "http://localhost:8080/api";
-const apiGateway = "https://y06hh5gy59.execute-api.us-east-1.amazonaws.com/dev"
+import { apiEndpoint, apiGateway } from "./constants";
+
 const signup = async(params) => {
   const {
     email,
@@ -14,7 +13,7 @@ const signup = async(params) => {
     password,
   };
 
-  const res = await fetch(`${endpoint}/signup`, {
+  const res = await fetch(`${apiEndpoint}/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify(body),
@@ -37,7 +36,7 @@ const login = async(params) => {
     password,
   };
 
-  let res = await fetch(`${endpoint}/login`, {
+  let res = await fetch(`${apiEndpoint}/login`, {
     method: 'POST',
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify(body),
@@ -55,7 +54,7 @@ const login = async(params) => {
 const getLogo = async() => {
   const user = JSON.parse(localStorage.getItem("user"));
 
-  let res = await fetch(`${endpoint}/get-image`, {
+  let res = await fetch(`${apiEndpoint}/get-image`, {
     method: 'POST',
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify({ email: user })

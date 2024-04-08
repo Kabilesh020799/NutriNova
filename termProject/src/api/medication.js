@@ -1,7 +1,6 @@
 import { isUserLogged } from "@/utils/commonUtils";
+import { apiEndpoint } from "./constants";
 
-const endpoint = "http://44.195.124.91:8080/api";
-// const endpoint = "http://localhost:8080/api";
 const userLogged = isUserLogged();
 
 const saveMedication = async(params) => {
@@ -16,7 +15,7 @@ const saveMedication = async(params) => {
     time,
   };
 
-  const res = await fetch(`${endpoint}/save-medication`, {
+  const res = await fetch(`${apiEndpoint}/save-medication`, {
     method: 'POST',
     headers: {  "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -28,7 +27,7 @@ const saveMedication = async(params) => {
 };
 
 const getAllMedication = async() => {
-  let res = await fetch(`${endpoint}/get-medication?email=${userLogged}`, {
+  let res = await fetch(`${apiEndpoint}/get-medication?email=${userLogged}`, {
     method: 'GET',
     headers: {  "Content-Type": "application/json" },
   })

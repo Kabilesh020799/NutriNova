@@ -1,7 +1,5 @@
 import { isUserLogged } from "@/utils/commonUtils";
-
-const endpoint = "http://44.195.124.91:8080/api";
-// const endpoint = "http://localhost:8080/api";
+import { apiEndpoint } from "./constants";
 
 const userLogged = isUserLogged();
 
@@ -11,7 +9,7 @@ const saveMentalHealth = async(params) => {
     user: userLogged,
   };
 
-  const res = await fetch(`${endpoint}/add-mental-health`, {
+  const res = await fetch(`${apiEndpoint}/add-mental-health`, {
     method: 'POST',
     headers: {  "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -23,7 +21,7 @@ const saveMentalHealth = async(params) => {
 };
 
 const getAllMentalHealth = async() => {
-  let res = await fetch(`${endpoint}/mental-health?email=${userLogged}`, {
+  let res = await fetch(`${apiEndpoint}/mental-health?email=${userLogged}`, {
     method: 'GET',
     headers: {  "Content-Type": "application/json" },
   })
