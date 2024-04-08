@@ -1,6 +1,6 @@
 const endpoint = "http://44.195.124.91:8080/api";
 // const endpoint = "http://localhost:8080/api";
-
+const apiGateway = "https://y06hh5gy59.execute-api.us-east-1.amazonaws.com/dev"
 const signup = async(params) => {
   const {
     email,
@@ -73,15 +73,11 @@ const uploadLogo = async(image) => {
   const email = JSON.parse(localStorage.getItem("user"));
 
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-886e15yu3",
-    name: `MyExecution-${Date.now()}`,
-    input: JSON.stringify({
-      email,
-      base64Image: image,
-      filename: 'logo' + email + '.jpg'
-    })
+    email,
+    base64Image: image,
+    filename: 'logo' + email + '.jpg'
   }
-  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/hub/uplo-image', {
+  let res = await fetch(`${apiGateway}/upload-s3`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -93,15 +89,11 @@ const uploadLogo = async(image) => {
 
 const createTopic = async(email, name) => {
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-fv988bw82",
-    name: `MyExecution-${Date.now()}`,
-    input: JSON.stringify({
-      email,
-      name: "Reminder" + name,
-    })
+    email,
+    name: "Reminder" + name
   };
 
-  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/hub', {
+  let res = await fetch(`${apiGateway}/create-topic-sns`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -114,15 +106,11 @@ const createTopic = async(email, name) => {
 const sendReminder = async(message) => {
   const topicArn = JSON.parse(localStorage.getItem('topicArn'));
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-bfbx8p02s",
-    name: `MyExecution-${Date.now()}`,
-    input: JSON.stringify({
-      topicArn,
-      message,
-    })
+    topicArn,
+    message,
   };
 
-  let res = await fetch('https://ufmz3o7fdb.execute-api.us-east-1.amazonaws.com/hub/send-reminder', {
+  let res = await fetch(`${apiGateway}/send-msg-sns`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
