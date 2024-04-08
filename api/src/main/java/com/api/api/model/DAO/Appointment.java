@@ -8,15 +8,15 @@ public class Appointment {
     @Id
     private String id;
     private String name;
-    private String userEmail;
+    private String user;
     private String time;
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getTime() {

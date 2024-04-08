@@ -81,6 +81,7 @@ const uploadLogo = async(image) => {
     headers: {
       'Content-Type': 'application/json'
     },
+    mode: 'no-cors',
     body: JSON.stringify(body)
   });
   res = res.json();
@@ -97,6 +98,7 @@ const createTopic = async(email, name) => {
     headers: {
       'Content-Type': 'application/json'
     },
+    mode: 'no-cors',
     body: JSON.stringify(body)
   });
   res = await res.json();

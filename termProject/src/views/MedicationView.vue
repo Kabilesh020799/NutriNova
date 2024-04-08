@@ -74,8 +74,8 @@
       alert("There was some issue in adding! Please try again.")
     }
   };
-  const onClickRemind = (message) => {
-    sendReminder("It's time for " + message);
+  const onClickRemind = async(message) => {
+    await sendReminder("It is time for " + message);
   }
   const onLoad = async() => {
     const res = await getAllMedication();

@@ -45,6 +45,8 @@
   import { ref } from 'vue';
   import FlatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
+  import { sendReminder } from '@/api/user';
+  import { getAllAppointment, saveAppointment } from '@/api/appointment';
 
   const time = ref(null);
   const appointmentList = ref([]);
@@ -56,16 +58,30 @@
     altInput: true,
     dateFormat: "H:i",
   };
+  const onClickRemind = async(message) => {
+    await sendReminder("It is time for " + message);
+  }
 
   const onClickSubmit = () => {
     appointment.value.trim();
-    appointmentList.value.push({
+    if(saveAppointment({
+      appointment: appointment.value,
+      time: time.value,
+    })) {
+      appointmentList.value.push({
       appointment: appointment.value,
       time: time.value,
     });
-    appointment.value = "";
+      appointment.value = "";
+    } else {
+      alert("There was some issue in adding! Please try again.")
+    }
   };
-
+  const onLoad = async() => {
+    const res = await getAllAppointment();
+    appointmentList.value.push(...res);
+  }
+  onLoad();
 </script>
 
 <style lang="scss" scoped>

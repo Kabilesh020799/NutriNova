@@ -16,6 +16,6 @@ public class AppointmentService {
     }
 
     public List<Appointment> getAllAppointments(String email) {
-        return appointmentRepository.findByUserEmail(email);
+        return appointmentRepository.findByUser(email);
     }
 }
