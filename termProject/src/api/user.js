@@ -107,8 +107,12 @@ const createTopic = async(email, name) => {
 const sendReminder = async(message) => {
   const topicArn = JSON.parse(localStorage.getItem('topicArn'));
   const body = {
-    topicArn,
-    message,
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:SendMsgSNSStateMachine-yX8KuBrAoBqF",
+    name: `MyExecution-${Date.now()}`,
+    input: JSON.stringify({
+      topicArn,
+      message,
+    })
   };
 
   let res = await fetch(`${apiGateway}/send-msg-sns`, {
