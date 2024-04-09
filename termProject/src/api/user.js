@@ -93,8 +93,12 @@ const uploadLogo = async(image) => {
 
 const createTopic = async(email, name) => {
   const body = {
-    email,
-    name: "Reminder" + name
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-fv988bw82",
+    name: `MyExecution-${Date.now()}`,
+    input: JSON.stringify({
+      email,
+      name: "Reminder" + name,
+    })
   };
 
   let res = await fetch(`${apiGateway}/create-topic-sns`, {
