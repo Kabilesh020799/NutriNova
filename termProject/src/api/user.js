@@ -72,7 +72,7 @@ const uploadLogo = async(image) => {
   const email = JSON.parse(localStorage.getItem("user"));
 
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-886e15yu3",
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:UploadS3StateMachine-OdiysWad3MF8",
     name: 'Execution' + new Date(),
     input: JSON.stringify({
       email,
@@ -93,7 +93,7 @@ const uploadLogo = async(image) => {
 
 const createTopic = async(email, name) => {
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-fv988bw82",
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:CreateTopicSNSStateMachine-y7UasFCrAbmY",
     name: `MyExecution-${Date.now()}`,
     input: JSON.stringify({
       email,
