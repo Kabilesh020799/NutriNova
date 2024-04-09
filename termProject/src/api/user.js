@@ -73,7 +73,7 @@ const uploadLogo = async(image) => {
 
   const body = {
     stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:UploadS3StateMachine-OdiysWad3MF8",
-    name: 'Execution' + new Date(),
+    name: `MyExecution-${Date.now()}`,
     input: JSON.stringify({
       email,
       base64Image: image,
