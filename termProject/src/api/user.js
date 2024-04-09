@@ -72,9 +72,13 @@ const uploadLogo = async(image) => {
   const email = JSON.parse(localStorage.getItem("user"));
 
   const body = {
-    email,
-    base64Image: image,
-    filename: 'logo' + email + '.jpg'
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:MyStateMachine-886e15yu3",
+    name: 'Execution' + new Date(),
+    input: JSON.stringify({
+      email,
+      base64Image: image,
+      filename: 'logo' + email + '.jpg'
+    })
   }
   let res = await fetch(`${apiGateway}/upload-s3`, {
     method: 'POST',
