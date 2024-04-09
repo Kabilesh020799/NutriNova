@@ -1,11 +1,12 @@
-FROM node:14-alpine as build-stage
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM node:20.11.0
 
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+ENV NODE_ENV production
+
+CMD ["npm", "run", "dev"]

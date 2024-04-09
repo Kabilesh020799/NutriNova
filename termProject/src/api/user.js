@@ -107,7 +107,7 @@ const createTopic = async(email, name) => {
 const sendReminder = async(message) => {
   const topicArn = JSON.parse(localStorage.getItem('topicArn'));
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:SendMsgSNSStateMachine-yX8KuBrAoBqF",
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:SendMsgSNSStateMachine-bGkUf4DZNchp",
     name: `MyExecution-${Date.now()}`,
     input: JSON.stringify({
       topicArn,
