@@ -72,7 +72,7 @@ const uploadLogo = async(image) => {
   const email = JSON.parse(localStorage.getItem("user"));
 
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:UploadS3StateMachine-OdiysWad3MF8",
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:UploadS3StateMachine-fmTXVWvxSmwV",
     name: `MyExecution-${Date.now()}`,
     input: JSON.stringify({
       email,
@@ -93,7 +93,7 @@ const uploadLogo = async(image) => {
 
 const createTopic = async(email, name) => {
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:CreateTopicSNSStateMachine-y7UasFCrAbmY",
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:CreateTopicSNSStateMachine-cL9wuAWu9frG",
     name: `MyExecution-${Date.now()}`,
     input: JSON.stringify({
       email,
@@ -115,7 +115,7 @@ const createTopic = async(email, name) => {
 const sendReminder = async(message) => {
   const topicArn = JSON.parse(localStorage.getItem('topicArn'));
   const body = {
-    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:SendMsgSNSStateMachine-bGkUf4DZNchp",
+    stateMachineArn: "arn:aws:states:us-east-1:339712989702:stateMachine:SendMsgSNSStateMachine-6AYsm3Ooltm4",
     name: `MyExecution-${Date.now()}`,
     input: JSON.stringify({
       topicArn,
